@@ -1,0 +1,75 @@
+# https://test-ivang7.c9users.io/
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    
+    #RewriteBase /
+    
+    ###
+    # проверить наличие куки-лицензии
+    #- если нет кидает на скрипт выдачи лицензии
+    ## скрипт проверяет - выдает / отказывает - результат в куки и редирект 
+    #- если есть - отдаем отчет или отправляет на страницу - с отказом (в зависимости от значения куки-лицензии)
+    
+    RewriteCond %{HTTP_COOKIE} !\blicense=\b
+    RewriteRule report(.*) checkLicense.php [NC]
+    
+    RewriteCond %{HTTP_COOKIE} \blicense=true\b
+    RewriteRule report(.*) report.php?queryParam=$1 [NC,QSA]
+    
+    RewriteCond %{HTTP_COOKIE} \blicense=false\b
+    RewriteRule report(.*) notHaveLicense.php [NC]
+    
+</IfModule>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    #LogLevel alert rewrite:trace3
+    #RewriteLog /tmp/modrewrite.log
+    
+    #RewriteBase /
+    #RewriteCond %{REQUEST_FILENAME} !-f
+    #RewriteRule "^/(.*)" "http://google.com/?s=$1" [P]
+    #ProxyPassReverse "/" "https://google.com/"
+    
+    
+    #RewriteCond %{REQUEST_FILENAME} !-f
+    #RewriteCond %{REQUEST_FILENAME} !-d
+    #RewriteCond http://google.ru -U
+    
+
+    
+    #RewriteBase /report
+    #RewriteCond %{HTTP_COOKIE} /^(.*;\s?)?license=true(;.*)?$/
+    #RewriteCond %{HTTP_COOKIE}  /^(.*;)?license=true(;.*)?$/
+    #RewriteRule report(.*) report.php?queryParam=$1 [L,NC,QSA]
+    
+
+    
+    
+    
+    #RewriteCond nononnourl/hello -U
+    #RewriteRule . http://google.ru [L]
+#RewriteCond "%{REQUEST_FILENAME}"       !-f
+#RewriteCond "%{REQUEST_FILENAME}"       !-d
+#RewriteRule "^/(.*)" "http://old.example.com/$1" [P]
+#ProxyPassReverse "/" "http://old.example.com/"
